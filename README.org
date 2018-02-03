@@ -1,14 +1,18 @@
-# Ising model simulation
+* Ising model simulation
 
-## Usage
+Monte Carlo simulation of the [[https://en.wikipedia.org/wiki/Ising_model][Ising model]] using Metropolis-Hastings.
 
-LightTable - open `core.clj` and press `Ctrl+Shift+Enter` to evaluate the file.
+[[./ising.gif]]
+
+** Usage
 
 Emacs - run cider, open `core.clj` and press `C-c C-k` to evaluate the file.
 
 REPL - run `(require 'ising-model.core)`.
 
-## License
+LightTable - open `core.clj` and press `Ctrl+Shift+Enter` to evaluate the file.
+
+** License
 
 Copyright © 2018 Dimitri Lozeve
 

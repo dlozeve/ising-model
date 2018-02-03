@@ -9,7 +9,8 @@
     {:grid-size size
      :matrix matrix
      :beta 10
-     :intensity 20}))
+     :intensity 10
+     :iteration 0}))
 
 (defn get-neighbours [state idx]
   [(get (:matrix state) (- idx (:grid-size state)))
@@ -24,10 +25,7 @@
 
 (defn toggle-state [state i]
   (let [matrix (:matrix state)]
-    {:matrix (assoc matrix i (* -1 (matrix i)))
-     :grid-size (:grid-size state)
-     :beta (:beta state)
-     :intensity (:intensity state)}))
+    (assoc state :matrix (assoc matrix i (* -1 (matrix i))))))
 
 (defn delta-e [state i]
   (* (:intensity state) ((:matrix state) i)
@@ -38,9 +36,8 @@
         new-state (toggle-state state i)
         alpha (q/exp (- (* (:beta state) (delta-e state i))))]
     ;;(println (hamiltonian new-state))
-    (if (< (rand) alpha)
-      new-state
-      state)))
+    (update (if (< (rand) alpha) new-state state)
+            :iteration inc)))
 
 (defn draw-state [state]
   (q/background 255)
@@ -51,11 +48,14 @@
         (q/no-stroke)
         (q/fill
          (if (= 1 v) 0 255))
-        (q/rect x y cell-size cell-size)))))
+        (q/rect x y cell-size cell-size))))
+  (when (zero? (mod (:iteration state) 50))
+    ;;(q/save-frame "img/ising-######.jpg")
+    ))
 
 (q/defsketch ising-model
   :title "Ising model"
-  :size [700 700]
+  :size [300 300]
   :setup #(setup 100)
   :update update-state
   :draw draw-state

@@ -49,9 +49,8 @@
         (q/fill
          (if (= 1 v) 0 255))
         (q/rect x y cell-size cell-size))))
-  (when (zero? (mod (:iteration state) 50))
-    ;;(q/save-frame "img/ising-######.jpg")
-    ))
+  ;;(when (zero? (mod (:iteration state) 50)) (q/save-frame "img/ising-######.jpg"))
+  )
 
 (defn mouse-clicked [state event]
   (setup 100))

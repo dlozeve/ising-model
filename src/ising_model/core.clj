@@ -53,12 +53,16 @@
     ;;(q/save-frame "img/ising-######.jpg")
     ))
 
+(defn mouse-clicked [state event]
+  (setup 100))
+
 (q/defsketch ising-model
   :title "Ising model"
   :size [300 300]
   :setup #(setup 100)
   :update update-state
   :draw draw-state
+  :mouse-clicked mouse-clicked
   :features [:keep-on-top :no-bind-output]
   :middleware [m/fun-mode])
  

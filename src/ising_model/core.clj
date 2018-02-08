@@ -9,7 +9,7 @@
   (let [matrix (vec (repeatedly (* size size) #(- (* 2 (rand-int 2)) 1)))]
     {:grid-size size
      :matrix matrix
-     :beta 10
+     :beta 20
      :intensity 10
      :iteration 0}))
 
@@ -48,16 +48,17 @@
 
 (defn draw-state [state]
   "Draw a configuration state as a grid"
-  (q/background 255)
-  (let [cell-size (quot (q/width) (:grid-size state))]
-    (doseq [[i v] (map-indexed vector (:matrix state))]
-      (let [x (* cell-size (rem i (:grid-size state)))
-            y (* cell-size  (quot i (:grid-size state)))]
-        (q/no-stroke)
-        (q/fill
-         (if (= 1 v) 0 255))
-        (q/rect x y cell-size cell-size))))
-  ;;(when (zero? (mod (:iteration state) 50)) (q/save-frame "img/ising-######.jpg"))
+  (when (zero? (mod (:iteration state) 50))
+    (q/background 255)
+    (let [cell-size (quot (q/width) (:grid-size state))]
+      (doseq [[i v] (map-indexed vector (:matrix state))]
+        (let [x (* cell-size (rem i (:grid-size state)))
+              y (* cell-size  (quot i (:grid-size state)))]
+          (q/no-stroke)
+          (q/fill
+           (if (= 1 v) 0 255))
+          (q/rect x y cell-size cell-size)))))
+  ;;(when (zero? (mod (:iteration state) 100)) (q/save-frame "img/ising-######.jpg"))
   )
 
 (defn mouse-clicked [state event]
